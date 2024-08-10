@@ -1,26 +1,35 @@
-// use actix_web::{get, App, HttpResponse, HttpServer, Responder};
-// use ru_tsk_dv::users as usersModule;
+use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 
-use ru_tsk_dv::modules::users::models::User;
+#[get("/")]
+async fn hello() -> impl Responder {
+    HttpResponse::Ok().body("Hello World")
+}
 
-// #[get("/")]
-// async fn hello() -> impl Responder {
-//     HttpResponse::Ok().body("Hello World")
-// }
+#[get("/users/register")]
+async fn users_register() -> impl Responder {
+    use ru_tsk_dv::modules::registration::{ services::RegistrationServiceFactory, dto::EmailRegistrationDTO };
 
-// #[get("/users")]
-// async fn users() -> impl Responder {
-//     HttpResponse::Ok().json(usersModule::find_all::find_all())
-// }
+    let service = RegistrationServiceFactory::create_for_email_strategy();
 
-// #[actix_web::main]
-fn main() {
-    // HttpServer::new(|| {
-    //     App::new()
-    //         .service(hello)
-    //         .service(users)
-    // })
-    // .bind(("127.0.0.1", 8080))?
-    // .run()
-    // .await
+    let dto = EmailRegistrationDTO {
+        email: String::from("fertnam@tsk.dv.ru"), 
+        password: String::from(""), 
+        name: String::from("")
+    };
+
+    service.register(&dto);
+
+    HttpResponse::Ok().body("usersRegister")
+}
+
+#[actix_web::main]
+async fn main() -> Result<(), std::io::Error> {
+    HttpServer::new(|| {
+        App::new()
+            .service(hello)
+            .service(users_register)
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }
