@@ -1,5 +1,5 @@
 pub mod schema;
-pub mod users;
+pub mod modules;
 
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
