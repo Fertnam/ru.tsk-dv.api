@@ -1,3 +1,8 @@
+pub mod controllers {
+    mod registration;
+    pub use registration::init;
+}
+
 pub mod dto {
     mod email_registration;
     pub use email_registration::EmailRegistrationDTO;
@@ -5,13 +10,13 @@ pub mod dto {
 
 pub mod strategies {
     mod registration;
-    pub use registration::RegistrationStrategy;
+    pub(crate) use registration::RegistrationStrategy;
 
     mod email_registration;
-    pub use email_registration::EmailRegistrationStrategy;
+    pub(crate) use email_registration::EmailRegistrationStrategy;
 }
 
 pub mod services {
     mod registration;
-    pub use registration::RegistrationServiceFactory;
+    pub(crate) use registration::RegistrationServiceFactory;
 }

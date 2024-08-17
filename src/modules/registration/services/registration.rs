@@ -17,7 +17,7 @@ pub struct RegistrationServiceFactory;
 
 impl RegistrationServiceFactory {
     pub fn create_for_email_strategy() -> RegistrationService<EmailRegistrationDTO>  {
-        let strategy = Box::new(EmailRegistrationStrategy {});
+        let strategy = Box::new(EmailRegistrationStrategy);
 
         RegistrationService {
             strategy
