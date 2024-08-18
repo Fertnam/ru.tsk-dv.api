@@ -3,14 +3,14 @@ pub mod controllers {
     pub use registration::init;
 }
 
-pub mod errors {
-    mod validation;
-    pub use validation::RegistrationValidationError;
-}
-
 pub mod dto {
     mod email_registration;
     pub use email_registration::EmailRegistrationDTO;
+}
+
+pub mod errors {
+    mod registration;
+    pub use registration::RegistrationError;
 }
 
 pub mod strategies {

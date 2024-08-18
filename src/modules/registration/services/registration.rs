@@ -2,14 +2,14 @@ use super::super::strategies::RegistrationStrategy;
 use super::super::strategies::EmailRegistrationStrategy;
 
 use super::super::dto::EmailRegistrationDTO;
-use super::super::errors::RegistrationValidationError;
+use super::super::errors::RegistrationError;
 
-pub struct RegistrationService<T, U> {
-    strategy: Box<dyn RegistrationStrategy<T, U>>,
+pub struct RegistrationService<T> {
+    strategy: Box<dyn RegistrationStrategy<T>>,
 }
 
-impl<T, U> RegistrationService<T, U> {
-    pub fn register(&self, dto: &T) -> U {
+impl<T> RegistrationService<T> {
+    pub fn register(&self, dto: &T) -> Result<(), RegistrationError> {
         self.strategy.register(dto)
     }
 }
@@ -17,7 +17,7 @@ impl<T, U> RegistrationService<T, U> {
 pub struct RegistrationServiceFactory;
 
 impl RegistrationServiceFactory {
-    pub fn create_for_email_strategy() -> RegistrationService<EmailRegistrationDTO, Result<(), RegistrationValidationError>> {
+    pub fn create_for_email_strategy() -> RegistrationService<EmailRegistrationDTO> {
         let strategy = Box::new(EmailRegistrationStrategy);
 
         RegistrationService {
