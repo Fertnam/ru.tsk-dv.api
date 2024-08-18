@@ -1,3 +1,3 @@
-pub trait RegistrationStrategy<T> {
-    fn register(&self, dto: &T);
+pub trait RegistrationStrategy<T, U> {
+    fn register(&self, dto: &T) -> U;
 }

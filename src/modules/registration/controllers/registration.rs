@@ -4,9 +4,14 @@ use super::super::{services::RegistrationServiceFactory, dto::EmailRegistrationD
 #[post("/email")]
 async fn register_by_email(dto: web::Form<EmailRegistrationDTO>) -> impl Responder {
     let service = RegistrationServiceFactory::create_for_email_strategy();
-    service.register(&dto);
+    let result = service.register(&dto);
 
-    HttpResponse::Ok().body("registered by email")
+    match result {
+        Ok(_) => HttpResponse::Ok().body("registered by email"),
+        Err(error) => {
+            HttpResponse::BadRequest().json(error)
+        }
+    }
 }
 
 pub fn init(cfg: &mut web::ServiceConfig) {
