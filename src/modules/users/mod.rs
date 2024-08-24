@@ -1,6 +1,7 @@
-// pub mod dto {
-    
-// }
+pub mod controllers {
+    mod users;
+    pub use users::init;
+}
 
 pub mod models {
     mod user;
@@ -10,6 +11,12 @@ pub mod models {
 pub mod repositories {
     mod users;
     pub use users::UsersRepository;
+
+    mod pg_users;
+    pub use pg_users::PgUsersRepository;
 }
 
-pub mod services {}
+pub mod services {
+    mod users;
+    pub use users::UsersServiceFactory;
+}

@@ -8,11 +8,13 @@ async fn ping() -> impl Responder {
 #[actix_web::main]
 async fn main() -> Result<(), std::io::Error> {
     use ru_tsk_dv::modules::registration;
+    use ru_tsk_dv::modules::users;
 
     HttpServer::new(|| {
         App::new()
             .service(ping)
             .configure(registration::controllers::init)
+            .configure(users::controllers::init)
     })
     .bind(("127.0.0.1", 8080))?
     .run()

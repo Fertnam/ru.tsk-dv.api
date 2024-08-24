@@ -1,9 +1,5 @@
-use crate::establish_connection;
-// use diesel::prelude::*;
-// use diesel_demo::*;
+use super::super::models::User;
 
-pub struct UsersRepository;
-
-impl UsersRepository {
-    pub fn find_all() {}
+pub trait UsersRepository {
+    fn find_all(&self) -> Vec<User>;
 }
