@@ -3,6 +3,11 @@ pub mod controllers {
     pub use users::init;
 }
 
+pub mod dto {
+    mod user_creation;
+    pub use user_creation::UserCreationDTO;
+}
+
 pub mod models {
     mod user;
     pub use user::User;
@@ -10,10 +15,10 @@ pub mod models {
 
 pub mod repositories {
     mod users;
-    pub use users::UsersRepository;
+    pub(crate) use users::UsersRepository;
 
     mod pg_users;
-    pub use pg_users::PgUsersRepository;
+    pub(crate) use pg_users::PgUsersRepository;
 }
 
 pub mod services {

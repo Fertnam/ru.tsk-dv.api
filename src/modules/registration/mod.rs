@@ -13,15 +13,15 @@ pub mod errors {
     pub use registration::RegistrationError;
 }
 
+pub mod services {
+    mod registration;
+    pub use registration::RegistrationServiceFactory;
+}
+
 pub mod strategies {
     mod registration;
     pub(crate) use registration::RegistrationStrategy;
 
     mod email_registration;
     pub(crate) use email_registration::EmailRegistrationStrategy;
-}
-
-pub mod services {
-    mod registration;
-    pub(crate) use registration::RegistrationServiceFactory;
 }
