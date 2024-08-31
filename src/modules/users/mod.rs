@@ -23,5 +23,6 @@ pub mod repositories {
 
 pub mod services {
     mod users;
+    pub use users::UsersService;
     pub use users::UsersServiceFactory;
 }

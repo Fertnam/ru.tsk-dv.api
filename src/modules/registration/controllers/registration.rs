@@ -2,7 +2,7 @@ use actix_web::{web, post, HttpResponse, Responder};
 use super::super::{services::RegistrationServiceFactory, dto::EmailRegistrationDTO};
 
 #[post("/email")]
-async fn register_by_email(dto: web::Form<EmailRegistrationDTO>) -> impl Responder {
+async fn register_by_email(dto: web::Form<EmailRegistrationDTO>, registration_service_factory: web::Data<RegistrationServiceFactory>) -> impl Responder {
     let service = RegistrationServiceFactory::create_for_email_strategy();
 
     match service.register(&dto) {

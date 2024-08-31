@@ -19,7 +19,7 @@ impl UsersService {
 pub struct UsersServiceFactory;
 
 impl UsersServiceFactory {
-    pub fn create_for_pg_users_repository() -> UsersService {
+    pub fn create_for_pg() -> UsersService {
         let users_repository = Box::new(PgUsersRepository);
 
         UsersService {

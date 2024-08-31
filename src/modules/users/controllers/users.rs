@@ -1,22 +1,22 @@
-use actix_web::{web, get, HttpResponse, Responder};
-use super::super::services::UsersServiceFactory;
+use actix_web::{web, get, post, HttpResponse, Responder};
+use super::super::services::UsersService;
+use super::super::dto::UserCreationDTO;
 
 #[get("")]
-async fn find_all() -> impl Responder {
-    let service = UsersServiceFactory::create_for_pg_users_repository();
-    HttpResponse::Ok().json(service.find_all())
+async fn find_all(users_service: web::Data<UsersService>) -> impl Responder {
+    HttpResponse::Ok().json(users_service.find_all())
 }
 
-// #[post("")]
-// async fn create(dto: web::Form<EmailRegistrationDTO>) -> impl Responder {
-//     let service = UsersServiceFactory::create_for_pg_users_repository();
-//     HttpResponse::Ok().json(service.create())
-// }
+#[post("")]
+async fn create(dto: web::Form<UserCreationDTO>, users_service: web::Data<UsersService>) -> impl Responder {
+    HttpResponse::Ok().json(users_service.create(&dto))
+}
 
 pub fn init(cfg: &mut web::ServiceConfig) {
     cfg
         .service(
             web::scope("/users")
                 .service(find_all)
+                .service(create)
         );
 }
