@@ -11,7 +11,7 @@ async fn main() -> Result<(), std::io::Error> {
     use ru_tsk_dv::modules::users;
     
     let registration_service_factory = web::Data::new(registration::services::RegistrationServiceFactory);
-    let users_service = web::Data::new(users::services::UsersServiceFactory::create_for_pg());
+    let users_service = web::Data::new(users::services::UsersServiceFactory::create(|| users::repositories::PgUsersRepository));
 
     HttpServer::new(move || {
         App::new()

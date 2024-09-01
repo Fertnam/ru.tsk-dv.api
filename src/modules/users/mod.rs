@@ -18,7 +18,7 @@ pub mod repositories {
     pub(crate) use users::UsersRepository;
 
     mod pg_users;
-    pub(crate) use pg_users::PgUsersRepository;
+    pub use pg_users::PgUsersRepository;
 }
 
 pub mod services {
